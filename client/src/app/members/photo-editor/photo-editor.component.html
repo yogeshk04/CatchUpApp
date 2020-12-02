@@ -6,7 +6,7 @@
                 [disabled]='photo.isMain'
                 (click)="setMainPhoto(photo)"
                 [ngClass]='photo.isMain ? "btn-success active" : "btn-outline-succes"'
-            class="btn-sm"
+            class="btn-sm mr-2"
             >Main</button>
             <button 
                 [disabled]="photo.isMain"
@@ -62,7 +62,7 @@
         <div>
             <div>
                 Queue progress:
-                <div class="progress" style="">
+                <div class="progress" style ="">
                     <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
                 </div>
             </div>
