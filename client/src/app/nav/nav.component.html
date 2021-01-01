@@ -18,6 +18,9 @@
         <li class="nav-item">
           <a class="nav-link" routerLink='/errors' routerLinkActive='active'>Errors</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink='/help' routerLinkActive='active'>Help</a>
+        </li>
         
         <!-- <li class="nav-item">
           <a class="nav-link" (click)="logout()" href="#">Logout</a>
@@ -25,7 +28,7 @@
       </ul>
 
       <div class="dropdown" *ngIf="(accoutnService.currentUser$ | async) as user" dropdown>
-        <img src="{{user.photoUrl || './assets/users.png'}}" alt="{{user.username}}">
+        <img src="{{user.photoUrl || './assets/users.png'}}" class="img-circle rounded-circle" alt="{{user.username}}">
         <a class="dropdown text-light ml-2" dropdownToggle>Welcome {{user.knownAs | titlecase}}</a>
         <div class="dropdown-menu" *dropdownMenu>
           <a class="dropdown-item" routerLink="member/edit">Edit Profile</a>

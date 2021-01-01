@@ -3,9 +3,9 @@ import { User } from './user';
 export class UserParams {
     gender: string;
     minAge = 18;
-    maxAge = 99;
+    maxAge = 65;
     pageNumber = 1;
-    pageSize = 2;
+    pageSize = 4;
     orderBy = 'lastActive';
 
     constructor(user: User) {
