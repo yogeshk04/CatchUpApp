@@ -18,9 +18,9 @@ namespace API.Data
             _context = context;
         }
 
-        public async Task<UserLike> GetUserLike(int sourceUserId, int likeUserId)
+        public async Task<UserLike> GetUserLike(int sourceUserId, int likedUserId)
         {
-           return await _context.Likes.FindAsync(sourceUserId, likeUserId);
+           return await _context.Likes.FindAsync(sourceUserId, likedUserId);
         }
 
         public async Task<PageList<LikeDto>> GetUserLikes(LikesParams likesParams)
@@ -40,21 +40,25 @@ namespace API.Data
                 users = likes.Select(like => like.SourceUser);
             }
 
-            var likeUsers = users.Select(user => new LikeDto
+            var likedUsers = users.Select(user => new LikeDto
             {
                 Username = user.UserName,
                 KnownAs = user.KnownAs,
                 Age = user.DateOfBirth.CalculateAge(),
                 PhotoUrl = user.Photos.FirstOrDefault(p => p.IsMain).Url,
+                City = user.City,
                 Id = user.Id
             });
 
-            return await PageList<LikeDto>.CreateAsync(likeUsers, likesParams.PageNumber, likesParams.PageSize);
+            return await PageList<LikeDto>.CreateAsync(likedUsers, 
+                likesParams.PageNumber, likesParams.PageSize);
         }
 
         public async Task<AppUser> GetUserWithLikes(int userId)
         {
-            return await _context.Users.Include(x => x.LikedUsers).FirstOrDefaultAsync(x =>x.Id == userId);
+            return await _context.Users
+                .Include(x => x.LikedUsers)
+                .FirstOrDefaultAsync(x => x.Id == userId);
         }
     }
 }

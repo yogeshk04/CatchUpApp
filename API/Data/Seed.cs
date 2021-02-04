@@ -16,16 +16,11 @@ namespace API.Data
 
             var userData = await System.IO.File.ReadAllTextAsync("Data/UserSeedDatal.json");
             var users = JsonSerializer.Deserialize<List<AppUser>>(userData);
-
+            if (users == null) return;
             foreach (var user in users)
             {
-                using var hmack = new HMACSHA512();
-
-                user.UserName = user.UserName.ToLower();
-                user.PasswordHash = hmack.ComputeHash(Encoding.UTF8.GetBytes("Pass"));
-                user.PasswordSalt = hmack.Key;
-
-                context.Users.Add(user);
+                user.UserName = user.UserName.ToLower();                
+                await context.Users.AddAsync(user);
             }
 
             await context.SaveChangesAsync();
