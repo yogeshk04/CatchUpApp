@@ -32,7 +32,7 @@ namespace API.Controllers
             var username = User.GetUsername();
 
             if (username == createMessageDto.RecipientUsername.ToLower())
-                return BadRequest("YOu cannot send messages to yourself.");
+                return BadRequest("You cannot send messages to yourself.");
 
             var sender = await _userRepository.GetUserByUsernameAsync(username);
             var recipient = await _userRepository.GetUserByUsernameAsync(createMessageDto.RecipientUsername);
@@ -88,7 +88,8 @@ namespace API.Controllers
 
             if (message.Sender.UserName == username) message.SenderDeleted = true;
 
-            if (message.Recipient.UserName == username) message.RecipientDeleted = true;
+            if (
+                message.Recipient.UserName == username) message.RecipientDeleted = true;
 
             if (message.SenderDeleted && message.RecipientDeleted) 
                 _messageRepository.DeleteMessage(message);
