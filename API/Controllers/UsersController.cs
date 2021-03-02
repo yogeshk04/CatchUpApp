@@ -138,7 +138,7 @@ namespace API.API.Controllers
 
             if (photo.PublicId != null) 
             {
-                var result = await _photoService.DeletePhotoAnync(photo.PublicId);
+                var result = await _photoService.DeletePhotoAsync(photo.PublicId);
                 if (result.Error != null) return BadRequest(result.Error.Message);
             }
 
